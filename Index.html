@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Love Tap + Music</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: #fff;
+      cursor: pointer;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .heart-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeOut 1.5s forwards;
+      pointer-events: none;
+    }
+
+    .heart {
+      color: red;
+      font-size: 64px;
+      animation: pulse 1s ease-in-out infinite;
+    }
+
+    .text {
+      margin-top: 8px;
+      font-size: 16px;
+      color: #333;
+      text-align: center;
+      max-width: 200px;
+      animation: appear 0.3s ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.4);
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 🎵 Audio: Carefree -->
+<audio id="bg-music" src="carefree.mp3" loop></audio>
+
+<script>
+  // Mainkan musik dan tampilkan animasi love saat diklik
+  document.addEventListener('click', function(e) {
+    const music = document.getElementById('bg-music');
+
+    // Play music jika belum dimainkan
+    if (music.paused) {
+      music.play().catch((err) => {
+        console.log("Autoplay blocked: ", err);
+      });
+    }
+
+    // Buat elemen love + teks
+    const container = document.createElement('div');
+    container.className = 'heart-container';
+    container.style.left = (e.pageX - 32) + 'px';
+    container.style.top = (e.pageY - 32) + 'px';
+
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '❤️';
+
+    const text = document.createElement('div');
+    text.className = 'text';
+    text.textContent = "I love u, don't be upset with me my loveelyy 🌷🌷🌷🌷";
+
+    container.appendChild(heart);
+    container.appendChild(text);
+    document.body.appendChild(container);
+
+    // Hapus animasi setelah selesai
+    setTimeout(() => {
+      container.remove();
+    }, 1600);
+  });
+</script>
+
+</body>
+</html>
